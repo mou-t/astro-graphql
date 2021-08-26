@@ -11,5 +11,9 @@
   "devDependencies": {
     "astro": "^0.20.1",
     "@astrojs/renderer-svelte": "^0.1.1"
+  },
+  "dependencies": {
+    "graphql": "^15.5.1",
+    "urql": "^2.0.4"
   }
 }
