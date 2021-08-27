@@ -1,23 +1,12 @@
 ---
 import SvelteCounter from '../components/SvelteCounter.svelte';
-import { createClient ,gql} from '@urql/core';
-import {PokemonDocument,PokemonQueryVariables} from "../generated/graphql"
+import {getPokemons} from "../util/getPokemons"
 
 let title = 'My Astro Site';
+const pokemons = await getPokemons()
+  1
+console.log(pokemons.data)
 
-const query = gql`
-  query {
-  pokemon(name: "ditto") {
-    id
-    name
-  }
-}
-`
-const client = createClient({
-    url:"https://graphql-pokeapi.vercel.app/api/graphql"
-})
-
-client.query<unknown,PokemonQueryVariables>(PokemonDocument,{name:"ditto"}).toPromise().then((res)=> console.log(res.data))
 ---
 <html lang="en">
 <head>

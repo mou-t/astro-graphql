@@ -272,6 +272,14 @@ export type PokemonQueryVariables = Exact<{
 
 export type PokemonQuery = { __typename?: 'Query', pokemon?: Maybe<{ __typename?: 'Pokemon', id?: Maybe<number>, name?: Maybe<string>, message?: Maybe<string>, status?: Maybe<boolean>, abilities?: Maybe<Array<Maybe<{ __typename?: 'Ability', ability?: Maybe<{ __typename?: 'BaseName', name?: Maybe<string> }> }>>>, moves?: Maybe<Array<Maybe<{ __typename?: 'Move', move?: Maybe<{ __typename?: 'BaseName', name?: Maybe<string> }> }>>>, types?: Maybe<Array<Maybe<{ __typename?: 'Type', type?: Maybe<{ __typename?: 'BaseName', name?: Maybe<string> }> }>>> }> };
 
+export type PokemonsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type PokemonsQuery = { __typename?: 'Query', pokemons?: Maybe<{ __typename?: 'PokemonList', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string>, status?: Maybe<boolean>, message?: Maybe<string>, results?: Maybe<Array<Maybe<{ __typename?: 'PokemonItem', url?: Maybe<string>, name?: Maybe<string>, image?: Maybe<string> }>>> }> };
+
 
 export const PokemonDocument = gql`
     query pokemon($name: String!) {
@@ -295,6 +303,22 @@ export const PokemonDocument = gql`
     }
     message
     status
+  }
+}
+    `;
+export const PokemonsDocument = gql`
+    query pokemons($limit: Int, $offset: Int) {
+  pokemons(limit: $limit, offset: $offset) {
+    count
+    next
+    previous
+    status
+    message
+    results {
+      url
+      name
+      image
+    }
   }
 }
     `;
