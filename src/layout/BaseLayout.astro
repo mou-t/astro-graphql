@@ -1,0 +1,37 @@
+---
+import "the-new-css-reset/css/reset.css"
+
+const {title} = Astro.props;
+---
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{title}</title>
+</head>
+<body>
+    <main>
+      <a href="/">
+        <h1 class="title">astro-graphql</h1>
+      </a>
+      <div class="wrapper">
+        <slot />
+      </div>
+    </main>
+</body>
+</html>
+
+<style>
+  .title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    padding: 10px 0;
+  }
+
+  .wrapper{
+    margin: 10px;
+  }
+</style>

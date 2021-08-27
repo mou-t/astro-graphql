@@ -278,7 +278,7 @@ export type PokemonsQueryVariables = Exact<{
 }>;
 
 
-export type PokemonsQuery = { __typename?: 'Query', pokemons?: Maybe<{ __typename?: 'PokemonList', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string>, status?: Maybe<boolean>, message?: Maybe<string>, results?: Maybe<Array<Maybe<{ __typename?: 'PokemonItem', url?: Maybe<string>, name?: Maybe<string>, image?: Maybe<string> }>>> }> };
+export type PokemonsQuery = { __typename?: 'Query', pokemons?: Maybe<{ __typename?: 'PokemonList', count?: Maybe<number>, next?: Maybe<string>, previous?: Maybe<string>, status?: Maybe<boolean>, message?: Maybe<string>, results?: Maybe<Array<Maybe<{ __typename?: 'PokemonItem', id?: Maybe<number>, name?: Maybe<string>, image?: Maybe<string> }>>> }> };
 
 
 export const PokemonDocument = gql`
@@ -315,7 +315,7 @@ export const PokemonsDocument = gql`
     status
     message
     results {
-      url
+      id
       name
       image
     }

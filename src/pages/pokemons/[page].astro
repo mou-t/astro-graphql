@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro"
+import {getPokemons} from "../../util/getPokemons"
+import PokemonsList from "../../components/PokemonsList.svelte"
+import PagenateButton from "../../components/PagenateButton.svelte"
+import Debug  from 'astro/components/Debug.astro';
+
+export async function getStaticPaths({ paginate }) {
+  const pokemons = await getPokemons({limit:10000,offset:0})
+  const {data} = pokemons
+  const allPokemon = data.pokemons.results
+  return paginate(allPokemon, { pageSize: 10 });
+}
+const { page } = Astro.props;
+const {data,url,lastPage,currentPage} = page
+---
+
+<Debug {lastPage} />
+<BaseLayout title="astro-graphql">
+  <div class="container">
+    <PokemonsList  pokemons={data} />
+    <div class="pagenate-group">
+      {url.prev && <PagenateButton page={currentPage - 1} link={url.prev} />}
+      <PagenateButton page={currentPage} />
+      {url.next && <PagenateButton page={currentPage + 1} link={url.next} />}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagenate-group{
+    display: flex;
+    gap:5px;
+    margin:10px 0;
+  }
+</style>

@@ -1,22 +1,35 @@
 ---
-import SvelteCounter from '../components/SvelteCounter.svelte';
+import BaseLayout from "../layout/BaseLayout.astro"
 import {getPokemons} from "../util/getPokemons"
+import PokemonsList from "../components/PokemonsList.svelte"
+import PagenateButton from "../components/PagenateButton.svelte"
 
-let title = 'My Astro Site';
-const pokemons = await getPokemons()
-  1
-console.log(pokemons.data)
+const pokemons = await getPokemons({limit:10,offset:0})
 
+const {data} = pokemons
+const allPokemon = data.pokemons.results
 ---
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>{title}</title>
-</head>
-<body>
-    <main>
-        <SvelteCounter client:visible />
-    </main>
-</body>
-</html>
+
+<BaseLayout title="astro-graphql">
+  <div class="container">
+    <PokemonsList  pokemons={allPokemon} />
+      <div class="pagenate-group">
+        <PagenateButton page={1} />
+        <PagenateButton page={2} link="/pokemons/2" />
+      </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pagenate-group{
+    display: flex;
+    gap:5px;
+    margin:10px 0;
+  }
+</style>

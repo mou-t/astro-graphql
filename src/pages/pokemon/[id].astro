@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro"
+import {getPokemons} from "../../util/getPokemons.ts"
+import {getPokemon} from "../../util/getPokemon.ts"
+import PokemonDetails from "../../components/PokemonDetails.svelte"
+import Debug  from 'astro/components/Debug.astro';
+
+export async function getStaticPaths() {
+  const pokemons = await getPokemons({limit:10000,offset:0})
+  const {data} = pokemons
+  const allPokemons = data.pokemons.results
+  const res = allPokemons.map(({id,name}) => {
+   return {params:{id:id.toString()},props:{name}}
+  })
+  console.log(res)
+  return res
+}
+
+const {id} = Astro.request.params;
+const {name} = Astro.props
+const {data} = await getPokemon({name})
+const {pokemon} = data
+---
+<Debug {pokemon} />
+<BaseLayout>
+  <PokemonDetails {pokemon} />
+</BaseLayout>
+

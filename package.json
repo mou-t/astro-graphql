@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "graphql": "^15.5.1",
+    "the-new-css-reset": "^1.2.0",
     "urql": "^2.0.4"
   }
 }
